@@ -210,3 +210,13 @@ input:checked + .slider::before {
     pointer-events: none;
     opacity: 0.85;
 }
+
+.toggle-container,
+.toggle,
+.slider,
+.toggle-label,
+.legend,
+.legend-item {
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+}
