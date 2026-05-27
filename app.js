@@ -35,21 +35,17 @@ document.addEventListener("DOMContentLoaded", async function() {
 
 const geekLand = [
     [2, 9],
-    [2, 10],
     [2, 11],
     [3, 8], 
     [3, 9], 
     [3, 11],
     [3, 12],
-    [4, 12],
+    [4, 8],
     [5, 11],
     [5, 12],
+    [6, 10],
     [6, 11],
-    [7, 12],
-];
-
-const oniLand = [
-    [3, 8],
+    [7, 11],
 ];
 
 
@@ -102,14 +98,16 @@ function updateSeasonMap(appState) {
             cell.classList.add("geekLand");
         }
 
-        if (appState.showOniLand && hasTile(oniLand, row, col)) {
+        if (appState.showOniLand && hasTile(geekLand, row, col)) {
+            if ((row % 2 == 0 && col % 2 == 0) || (row % 2 == 1 && col % 2 == 1)) {
+                return
+            } 
             cell.classList.add("oni");
         }
-
-        // if (appState.showOniLand && hasTile(oniGenerals, row, col)) {
-        //     cell.classList.add("general");
-        //     cell.textContent = "G";
+        // if (appState.showOniLand && hasTile(oniLand, row, col)) {
+        //     cell.classList.add("oni");
         // }
+
     });
 }
 
