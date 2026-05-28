@@ -10,6 +10,33 @@
     --oniColor: rgb(250, 100, 160);
     --tradeStoreColor: rgb(55, 180, 40);
     --legendBackGroundColor: rgb(170, 200, 230);
+
+    --modal-background-color: rgba(0, 0, 0, 0.4);
+    --modal-content-background-color: rgb(254, 254, 254);
+    --modal-background-color: rgba(0, 0, 0, 0.4);
+
+    --modal-close-button-color: rgb(220, 220, 220);
+    --modal-close-button-hover-color: rgb(0, 0, 0);
+    --modal-close-button-background-color: rgb(255, 55, 55);
+
+    --primary-button-background: rgb(40, 90, 230);
+    --primary-button-hover-background: rgb(20, 70, 210);
+    --primary-button-active-background: rgb(20, 40, 200);
+
+    --insert-button-background: rgb(70, 210, 10);
+    --insert-button-hover-background: rgb(50, 190, 10);
+    --insert-button-active-background: rgb(30, 170, 10);
+
+    --delete-button-background: rgb(230, 15, 15);
+    --delete-button-hover-background: rgb(200, 15, 15);
+    --delete-button-active-background: rgb(170, 15, 15);
+
+    --grey-button-background: rgb(170, 170, 170);
+    --grey-button-hover-background: rgb(150, 150, 150);
+    --grey-button-active-background: rgb(130, 130, 130);
+
+    --button-text-color: black;
+    --button-text-color-white: white;
 }
 
 body {
@@ -20,6 +47,18 @@ body {
     align-items: center;
     background: var(--bodyBackGroundColor);
     font-family: Arial, sans-serif;
+}
+
+.div-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.1rem;
 }
 
 #top-container {
@@ -219,4 +258,155 @@ input:checked + .slider::before {
 .legend-item {
     user-select: none;
     -webkit-user-select: none; /* Safari */
+}
+
+
+/* -------BUTTON STYLING --------=*/
+.primary-button {
+    background-color: var(--primary-button-background);
+    color: var(--button-text-color-white);
+    border: 2px solid black;
+    border-radius: 0.2rem;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.primary-button:hover {
+    background-color: var(--primary-button-hover-background);
+}
+
+.primary-button:active {
+    background-color: var(--primary-button-active-background);
+    transform: translate(0.05rem, 0.05rem);
+}
+
+.insert-button {
+    background-color: var(--insert-button-background);
+    color: var(--button-text-color-white);
+    border: 2px solid black;
+    border-radius: 0.2rem;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    cursor: pointer;
+    font-family: Helvetica;
+}
+
+.insert-button:hover {
+    background-color: var(--insert-button-hover-background);
+}
+
+.insert-button:active {
+    background-color: var(--insert-button-active-background);
+    transform: translate(0.05rem, 0.05rem);
+}
+
+.delete-button {
+    background-color: var(--delete-button-background);
+    color: var(--button-text-color-white);
+    border: 2px solid black;
+    border-radius: 0.2rem;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    cursor: pointer;
+    font-family: Helvetica;
+}
+
+.delete-button:hover {
+    background-color: var(--delete-button-hover-background);
+}
+
+.delete-button:active {
+    background-color: var(--delete-button-active-background);
+    transform: translate(0.05rem, 0.05rem);
+}
+
+.grey-button {
+    background-color: var(--grey-button-background);
+    color: var(--button-text-color);
+    border: 2px solid black;
+    border-radius: 0.2rem;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    cursor: pointer;
+    font-family: Helvetica;
+    font-weight: 600;
+}
+
+.grey-button:hover {
+    background-color: var(--grey-button-hover-background);
+}
+
+.grey-button:active {
+    background-color: var(--grey-button-active-background);
+    transform: translate(0.05rem, 0.05rem);
+}
+
+.medium-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+    align-self: center;
+}
+/*---------- MODAL STYLING --------- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--modal-background-color);
+}
+
+.modal-content {
+    position: absolute; /* or fixed, depending on your needs */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--modal-content-background-color);
+    border: 1px solid var(--modal-border-color);
+    z-index: 22;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.modal-header {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px; 
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+    justify-content: right;
+}
+
+.close {
+    color: #aaa;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--modal-close-button-color);
+    text-align: center;
+    line-height: 23px;
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    border-radius: 50%;
+    background-color: var(--modal-close-button-background-color); /* Adjust color as needed */
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    transform: scale(1.2);
+    border: 1px solid black;
+}
+
+#confirmation-modal-message,
+#confirmation-add-modal-message {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }

@@ -1,15 +1,15 @@
-
-document.addEventListener("DOMContentLoaded", async function() {    
-    appState = {
+let appState = {
         showGeekLand: false,
         showOniLand: false,
     }
+
+document.addEventListener("DOMContentLoaded", async function() {    
 
     const geekToggle = document.getElementById("geekToggle");
     const oniToggle = document.getElementById("oniToggle");
 
     buildSeasonMap();
-    updateSeasonMap(appState);
+    updateSeasonMap();
 
     placeTradeStoreOverlay(1, 1);
     placeTradeStoreOverlay(2, 2);
@@ -22,28 +22,34 @@ document.addEventListener("DOMContentLoaded", async function() {
     
     geekToggle.addEventListener("change", () => {
         appState.showGeekLand = geekToggle.checked;
-        updateSeasonMap(appState);
+        updateSeasonMap();
     });
 
     oniToggle.addEventListener("change", () => {
         appState.showOniLand = oniToggle.checked;
-        updateSeasonMap(appState);
+        updateSeasonMap();
     });
+
+    const cells = document.querySelectorAll(".map-cell");
+    cells.forEach(cell => (
+        cell.addEventListener("click", (e) => mapCellHandler(e))
+    ))
 
 })
 
 
 const geekLand = [
     [2, 9],
+    [2, 10],
     [2, 11],
     [3, 8], 
     [3, 9], 
     [3, 11],
     [3, 12],
-    [4, 8],
+    [4, 12],
     [5, 11],
     [5, 12],
-    [6, 10],
+    // [6, 10],
     [6, 11],
     [7, 11],
 ];
@@ -75,7 +81,7 @@ function buildSeasonMap() {
     }
 }
 
-function updateSeasonMap(appState) {
+function updateSeasonMap() {
     const cells = document.querySelectorAll(".map-cell");
 
     cells.forEach(cell => {
@@ -104,9 +110,7 @@ function updateSeasonMap(appState) {
             } 
             cell.classList.add("oni");
         }
-        // if (appState.showOniLand && hasTile(oniLand, row, col)) {
-        //     cell.classList.add("oni");
-        // }
+       
 
     });
 }
@@ -135,4 +139,105 @@ function placeTradeStoreOverlay(row, col) {
     store.style.top = `${y}px`;
 
     map.appendChild(store);
+}
+
+async function mapCellHandler(e) {
+    if (!appState.showGeekLand) return;
+
+    const target = e.target;
+    const dataRow = Number(target.dataset.row);
+    const dataCol = Number(target.dataset.col);
+
+    if (!appState.showGeekLand) return;
+
+    const isGeekLand = clickedGeekLand(dataRow, dataCol);
+    
+    if (isGeekLand){
+        const confirmed = await removeGeekLand();
+        if (!confirmed) return;
+
+        const index = geekLand.findIndex(
+            ([row, col]) => row === dataRow && col === dataCol
+        );
+
+        geekLand.splice(index, 1);
+    } else {
+        const confirmed = await addGeekLand();
+        if (!confirmed) return;
+        geekLand.push([dataRow, dataCol]);
+    }
+    
+
+    updateSeasonMap();
+    console.log(geekLand);
+}
+
+function clickedGeekLand(dataRow, dataCol) {
+    const index = geekLand.findIndex(
+        ([row, col]) => row === dataRow && col === dataCol
+    );
+
+    return index == -1 ? false : true
+}
+
+function removeGeekLand() {
+    return new Promise (resolve => {
+        const modal = document.getElementById("confirmation-modal");
+        const yesButton = document.getElementById("yes-button");
+        const noButton = document.getElementById("cancel-button");
+
+        modal.style.display = "block";
+
+        const handleYesClick = () => {
+            modal.style.display = "none";
+            cleanup() // remove listeners 
+            resolve(true);
+        }
+
+        const handleNoClick = () => {
+            modal.style.display = "none";
+            cleanup(); // Clean up listeners
+            resolve(false);
+        };
+
+        yesButton.addEventListener("click", handleYesClick);
+        noButton.addEventListener("click", handleNoClick);
+
+        function cleanup() {
+            yesButton.removeEventListener("click", handleYesClick);
+            noButton.removeEventListener("click", handleNoClick);
+        }
+
+    });
+}
+
+function addGeekLand() {
+    return new Promise (resolve => {
+        const modal = document.getElementById("confirmation-add-modal");
+        const yesButton = document.getElementById("yes-add-button");
+        const noButton = document.getElementById("cancel-add-button");
+
+        modal.style.display = "block";
+
+        const handleYesClick = () => {
+            modal.style.display = "none";
+            cleanup() // remove listeners 
+            resolve(true);
+        }
+
+        const handleNoClick = () => {
+            modal.style.display = "none";
+            cleanup(); // Clean up listeners
+            resolve(false);
+        };
+
+        yesButton.addEventListener("click", handleYesClick);
+        noButton.addEventListener("click", handleNoClick);
+
+        function cleanup() {
+            yesButton.removeEventListener("click", handleYesClick);
+            noButton.removeEventListener("click", handleNoClick);
+        }
+
+    });
 }
