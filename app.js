@@ -64,6 +64,9 @@ function buildSeasonMap() {
             const cell = document.createElement("div");
 
             cell.classList.add("map-cell");
+            if ((row % 2 == 0 && col % 2 == 0) || (row % 2 == 1 && col % 2 == 1)) {
+                cell.classList.add("digger");
+            } 
             cell.dataset.row = row;
             cell.dataset.col = col;
 

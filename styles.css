@@ -5,11 +5,13 @@
 }
 
 :root {
-    --bodyBackGroundColor: rgb(140, 170, 200);
+    --bodyBackGroundColor: rgb(180, 200, 230);
     --geekColor: rgb(50, 50, 250);
     --oniColor: rgb(250, 100, 160);
     --tradeStoreColor: rgb(55, 180, 40);
-    --legendBackGroundColor: rgb(170, 200, 230);
+    --legendBackGroundColor: rgb(200, 210, 240);
+    --diggerColor: rgb(220, 175, 210);
+    --cityColor: rgb(225, 210, 160);
 
     --modal-background-color: rgba(0, 0, 0, 0.4);
     --modal-content-background-color: rgb(254, 254, 254);
@@ -175,7 +177,8 @@ input:checked + .slider::before {
 .legend-color {
     width: 18px;
     height: 18px;
-    border-radius: 50%;
+    border: 1px solid black;
+    border-radius: 5%;
     display: inline-block;
     box-shadow: 0 0 8px rgba(255,255,255,0.15);
 }
@@ -192,13 +195,21 @@ input:checked + .slider::before {
     background: var(--tradeStoreColor);
 }
 
+.legend-color.city {
+    background: var(--cityColor);
+}
+
+.legend-color.dig {
+    background: var(--diggerColor);
+}
+
 /* ------ MAP ------- */
 
 
 .map-cell {
     width: 40px;
     height: 40px;
-    background: #e7d6a5;
+    background: var(--cityColor);
     border: 1px solid rgba(0,0,0,0.35);
     border-radius: 1px;
     display: flex;
@@ -208,6 +219,10 @@ input:checked + .slider::before {
     font-weight: bold;
     color: rgba(0,0,0,0.55);
     overflow: hidden;
+}
+
+.digger {
+    background: var(--diggerColor);
 }
 
 .map-cell.geekLand {
