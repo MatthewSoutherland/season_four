@@ -39,19 +39,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
 
 const geekLand = [
-    [2, 9],
-    [2, 10],
-    [2, 11],
-    [3, 8], 
-    [3, 9], 
-    [3, 11],
-    [3, 12],
-    [4, 12],
-    [5, 11],
-    [5, 12],
-    // [6, 10],
-    [6, 11],
-    [7, 11],
+    [2,9],[2,11],[3,8],[3,9],[3,11],[5,11],[6,11],[7,11],[3,10],[4,11],[6,10],[4,8]
 ];
 
 
@@ -74,6 +62,7 @@ function buildSeasonMap() {
                 const img = document.createElement("img");
                 img.src = "pictures/capital.png";
                 img.alt = "Capital";
+                img.id = "capital";
                 cell.appendChild(img);
             } else {
                 cell.textContent = `${row},${col}`;
@@ -146,6 +135,11 @@ function placeTradeStoreOverlay(row, col) {
 
 async function mapCellHandler(e) {
     if (!appState.showGeekLand) return;
+
+    if (e.target.id == "capital") {
+        console.log(JSON.stringify(geekLand));
+        return;
+    }
 
     const target = e.target;
     const dataRow = Number(target.dataset.row);
