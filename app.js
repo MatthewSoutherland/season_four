@@ -35,6 +35,16 @@ document.addEventListener("DOMContentLoaded", async function() {
         cell.addEventListener("click", (e) => mapCellHandler(e))
     ))
 
+    const closeButtons = document.querySelectorAll(".close");
+    closeButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const modals = document.querySelectorAll(".modal");
+            modals.forEach(modal => {
+                modal.style.display = "none";
+            })
+        })
+    })
+
 })
 
 
