@@ -48,9 +48,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 })
 
 
-const geekLand = [
-    [2,9],[2,11],[3,8],[3,9],[3,11],[5,11],[6,11],[7,11],[3,10],[4,11],[6,10],[4,8]
-];
+const geekLand = [[3,8],[3,9],[6,11],[3,10],[4,11],[6,10],[4,8],[4,10],[7,10],[7,9],[5,9],[4,9]];
 
 
 function buildSeasonMap() {
