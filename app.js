@@ -150,16 +150,17 @@ async function mapCellHandler(e) {
         console.log(JSON.stringify(geekLand));
         return;
     }
+    if (!appState.showGeekLand) return;
 
     const target = e.target;
     const dataRow = Number(target.dataset.row);
     const dataCol = Number(target.dataset.col);
-
-    if (!appState.showGeekLand) return;
-
     const isGeekLand = clickedGeekLand(dataRow, dataCol);
     
     if (isGeekLand){
+        const messageElement = document.getElementById("remove-land-message");
+        let message = `Remove [${dataRow}-${dataCol}] land from Geek?`;
+        messageElement.textContent = message;
         const confirmed = await removeGeekLand();
         if (!confirmed) return;
 
@@ -169,6 +170,9 @@ async function mapCellHandler(e) {
 
         geekLand.splice(index, 1);
     } else {
+        const messageElement = document.getElementById("add-land-message");
+        let message = `Add [${dataRow}-${dataCol}] land to Geek?`;
+        messageElement.textContent = message;
         const confirmed = await addGeekLand();
         if (!confirmed) return;
         geekLand.push([dataRow, dataCol]);
